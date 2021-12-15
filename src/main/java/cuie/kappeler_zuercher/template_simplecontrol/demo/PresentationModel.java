@@ -1,4 +1,4 @@
-package cuie.project.template_simplecontrol.demo;
+package cuie.kappeler_zuercher.template_simplecontrol.demo;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;

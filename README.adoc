@@ -2,7 +2,8 @@
 
 === Bearbeitet von
 
-* _Vorname Nachname_
+* Kappeler Nico
+* Thomas Zürcher
 
 === Integriert in die OOP2-Projekte von
 

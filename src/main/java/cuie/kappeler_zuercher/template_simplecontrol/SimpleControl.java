@@ -1,4 +1,4 @@
-package cuie.project.template_simplecontrol;
+package cuie.kappeler_zuercher.template_simplecontrol;
 
 import java.util.List;
 import java.util.Locale;
