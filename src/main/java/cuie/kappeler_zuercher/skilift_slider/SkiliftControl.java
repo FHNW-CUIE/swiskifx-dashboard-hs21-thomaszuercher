@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -15,8 +14,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextBoundsType;
 
 
 /**
@@ -41,12 +38,12 @@ public class SkiliftControl extends Region {
     private static final Image SESSELLIFT_IMG = new Image("/images/Sessellift.png");
     private static final Image SESSELLIFT_SEIL_IMG = new Image("/images/SesselliftSeil.png");
 
-    private final static Integer MIN = 0;
-    private final static Integer MAX = 100;
+    private static final Integer MIN = 0;
+    private static final Integer MAX = 100;
 
-    private final static Color COLOR_GONDEL = Color.rgb(81,108,151);
-    private final static Color COLOR_SCHLEPPLIFT = Color.rgb(17,146,242);
-    private final static Color COLOR_SESSELLIFT = Color.rgb(63,82,255);
+    private static final Color COLOR_GONDEL = Color.rgb(81,108,151);
+    private static final Color COLOR_SCHLEPPLIFT = Color.rgb(17,146,242);
+    private static final Color COLOR_SESSELLIFT = Color.rgb(63,82,255);
 
     private Rectangle background;
     private Text   displayLocation;
