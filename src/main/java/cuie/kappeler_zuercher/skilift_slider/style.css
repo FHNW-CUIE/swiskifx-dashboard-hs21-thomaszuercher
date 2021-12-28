@@ -1,0 +1,25 @@
+.skilift-control {
+    -fx-padding: 5;
+    -fx-background-color: rgb(12, 12, 12);
+    -base-color: rgb(104, 197, 246);
+}
+
+.skilift-control .background {
+    -fx-fill: -base-color;
+}
+
+.skilift-control .location-title {
+    -fx-font-family: 'Roboto Bold';
+    -fx-font-size: 24;
+    -fx-fill: derive(-base-color, 95%);
+}
+
+.skilift-control .canton {
+    -fx-font-size: 16;
+    -fx-fill: derive(-base-color, 95%);
+}
+
+.gondel-point {
+    -fx-background-color: rgb(81, 108, 151);
+}
+
