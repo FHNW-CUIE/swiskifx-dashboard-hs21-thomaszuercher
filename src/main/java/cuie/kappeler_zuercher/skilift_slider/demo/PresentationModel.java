@@ -15,6 +15,7 @@ public class PresentationModel {
     private final IntegerProperty valueSessellift = new SimpleIntegerProperty(90);
     private final IntegerProperty min = new SimpleIntegerProperty(0);
     private final IntegerProperty max = new SimpleIntegerProperty(100);
+    private final IntegerProperty openLifts = new SimpleIntegerProperty(30);
 
 
     // all getters and setters (generated via "Code -> Generate -> Getter and Setter)
@@ -45,6 +46,18 @@ public class PresentationModel {
 
     public int getMin() {
         return min.get();
+    }
+
+    public IntegerProperty openLiftsProperty() {
+        return openLifts;
+    }
+
+    public void setOpenLifts(int openLifts) {
+        this.openLifts.set(openLifts);
+    }
+
+    public int getOpenLifts() {
+        return openLifts.get();
     }
 
     public IntegerProperty minProperty() {

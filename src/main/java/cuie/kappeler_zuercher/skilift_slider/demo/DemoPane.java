@@ -1,9 +1,11 @@
 package cuie.kappeler_zuercher.skilift_slider.demo;
 
+import cuie.kappeler_zuercher.skilift_slider.GaugeChartControl;
 import cuie.kappeler_zuercher.skilift_slider.SkiliftControl;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import javafx.util.converter.NumberStringConverter;
@@ -17,6 +19,7 @@ public class DemoPane extends BorderPane {
 
     // declare the custom control
     private SkiliftControl skiliftControl;
+    private GaugeChartControl gaugeChartControl;
 
     // all controls you need to show the features of the custom control
     private Label titleLabel;
@@ -38,6 +41,7 @@ public class DemoPane extends BorderPane {
         setPadding(new Insets(10));
 
         skiliftControl = new SkiliftControl();
+        gaugeChartControl = new GaugeChartControl();
 
         titleLabel = new Label("Dashboard Properties");
         valueGondelTitleLabel = new Label("Anzahl Gondeln: ");
@@ -54,7 +58,8 @@ public class DemoPane extends BorderPane {
         controlPane.setPadding(new Insets(0, 50, 0, 50));
         controlPane.setSpacing(10);
 
-        setCenter(skiliftControl);
+        HBox controls = new HBox(skiliftControl, gaugeChartControl);
+        setCenter(controls);
         setRight(controlPane);
     }
 
@@ -71,6 +76,12 @@ public class DemoPane extends BorderPane {
         skiliftControl.locationValueProperty().bindBidirectional(pm.locationProperty());
         skiliftControl.cantonValueProperty().bindBidirectional(pm.cantonProperty());
         skiliftControl.snowheightValueProperty().bindBidirectional(pm.snowHeightProperty(), new NumberStringConverter());
+
+        gaugeChartControl.gondelValueProperty().bind(pm.valueGondelProperty());
+        gaugeChartControl.schleppliftValueProperty().bind(pm.valueSchleppliftProperty());
+        gaugeChartControl.sesselliftValueProperty().bind(pm.valueSesselliftProperty());
+        gaugeChartControl.openLiftValueProperty().bind(pm.openLiftsProperty());
+
     }
 
 }

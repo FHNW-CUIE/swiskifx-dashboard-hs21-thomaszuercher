@@ -1,3 +1,10 @@
+* {
+    -gondel-color: rgb(81,108,151);
+    -schlepplift-color: rgb(17,146,242);
+    -sessellift-color: rgb(63,82,255);
+    -fx-font-family: 'Roboto Regular';
+}
+
 .skilift-control {
     -fx-padding: 5;
     -fx-background-color: rgb(12, 12, 12);
@@ -21,5 +28,38 @@
 
 .gondel-point {
     -fx-background-color: rgb(81, 108, 151);
+}
+.gauge-control .chart-text {
+    -fx-fill: white;
+}
+
+.gauge-control .title-text {
+    -fx-fill: black;
+    -fx-font-size: 18px;
+    -fx-font-family: 'Roboto Bold';
+}
+
+.gauge-control .gondel-rect {
+    -fx-fill: -gondel-color;
+}
+
+.gauge-control .schlepplift-rect {
+    -fx-fill: -schlepplift-color;
+}
+
+.gauge-control .sessellift-rect {
+    -fx-fill: -sessellift-color;
+}
+
+.gauge-control .gondel-arc {
+    -fx-fill: -gondel-color;
+}
+
+.gauge-control .schlepplift-arc {
+    -fx-fill: -schlepplift-color;
+}
+
+.gauge-control .sessellift-arc {
+    -fx-fill: -sessellift-color;
 }
 

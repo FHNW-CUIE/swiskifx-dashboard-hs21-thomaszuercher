@@ -83,7 +83,8 @@ public class SkiliftControl extends Region {
     }
 
     private void initializeSelf() {
-        loadFonts("/fonts/SnowburstOne-Regular.ttf");
+        loadFonts("/fonts//Roboto/Roboto-Regular.ttf");
+        loadFonts("/fonts//Roboto/Roboto-Bold.ttf");
         addStylesheetFiles("style.css");
 
         getStyleClass().add("skilift-control");
