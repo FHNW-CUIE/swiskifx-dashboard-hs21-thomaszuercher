@@ -1,4 +1,4 @@
-package cuie.kappeler_zuercher.dashboard;
+package dashboard;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -30,11 +30,9 @@ public class SkiliftControl extends Region {
 
     private static final double MAXIMUM_WIDTH = 1000;
 
-    private static final Image GONDEL_IMG = new Image("/images/Gondel.png");
-    private static final Image SCHLEPPLIFT_IMG = new Image("/images/Schlepplift.png");
-    private static final Image SCHLEPPLIFT_SEIL_IMG = new Image("/images/SchleppliftSeil.png");
-    private static final Image SESSELLIFT_IMG = new Image("/images/Sessellift.png");
-    private static final Image SESSELLIFT_SEIL_IMG = new Image("/images/SesselliftSeil.png");
+    private Image gondelImg;
+    private Image schleppliftImg;
+    private Image sesselliftImg;
 
     private static final Integer MIN = 0;
     private static final Integer MAX = 100;
@@ -80,17 +78,21 @@ public class SkiliftControl extends Region {
     }
 
     private void initializeSelf() {
-        loadFonts("/fonts/Roboto/Roboto-Regular.ttf");
-        loadFonts("/fonts/Roboto/Roboto-Bold.ttf");
+        loadFonts("fonts/Roboto/Roboto-Regular.ttf");
+        loadFonts("fonts/Roboto/Roboto-Bold.ttf");
         addStylesheetFiles("style.css");
 
         getStyleClass().add("skilift-control");
     }
 
     private void initializeParts() {
-        displayLocation = new Text(10, 25, "");
+        gondelImg = new Image(getClass().getResource("images/Gondel.png").toExternalForm());
+        schleppliftImg = new Image(getClass().getResource("images/Schlepplift.png").toExternalForm());
+        sesselliftImg = new Image(getClass().getResource("images/Sessellift.png").toExternalForm());
+
+        displayLocation = new Text(10, 30,"");
         displayLocation.getStyleClass().add("location-title");
-        displayCanton = new Text(10, 60, "");
+        displayCanton = new Text(10, 65, "");
         displayCanton.getStyleClass().add("canton");
         minLifte = new Text(MIN.toString());
         minLifte.getStyleClass().add("min-lifte");
@@ -106,19 +108,16 @@ public class SkiliftControl extends Region {
 
         gondel = new Rectangle(minLine.getX() - 40, 177, 70, 58);
         schlepplift = new Rectangle(minLine.getX() - 40, 261, 48, 45);
-        schleppliftSeil = new Rectangle(minLine.getX() - 40, 177, 41, 109);
+        schleppliftSeil = new Rectangle(minLine.getX() - 40, 177, 2, 109);
         sessellift = new Rectangle(minLine.getX() - 40, 331, 59, 59);
         sesselliftSeil = new Rectangle(minLine.getX() - 40, 177, 2, 184);
-        ImagePattern patternGondel = new ImagePattern(GONDEL_IMG);
-        ImagePattern patternSchlepplift = new ImagePattern(SCHLEPPLIFT_IMG);
-        ImagePattern patternSchleppliftSeil = new ImagePattern(SCHLEPPLIFT_SEIL_IMG);
-        ImagePattern patternSessellift = new ImagePattern(SESSELLIFT_IMG);
-        ImagePattern patternSesselliftSeil = new ImagePattern(SESSELLIFT_SEIL_IMG);
+        ImagePattern patternGondel = new ImagePattern(gondelImg);
+        ImagePattern patternSchlepplift = new ImagePattern(schleppliftImg);
+        ImagePattern patternSessellift = new ImagePattern(sesselliftImg);
         gondel.setFill(patternGondel);
         schlepplift.setFill(patternSchlepplift);
-        schleppliftSeil.setFill(patternSchleppliftSeil);
+        schleppliftSeil.setRotate(20);
         sessellift.setFill(patternSessellift);
-        sesselliftSeil.setFill(patternSesselliftSeil);
         gondelPoint = new Circle(158, 178, 10);
         gondelPoint.setFill(COLOR_GONDEL);
         schleppliftPoint = new Circle(168, 178, 10);
@@ -160,6 +159,24 @@ public class SkiliftControl extends Region {
             int newValue = (int) percentageToValue(per, MIN, MAX);
             setSesselliftValue(MIN >= newValue ? 0 : MAX <= newValue ? 100 : newValue);
         });
+
+        gondelPoint.setOnMouseDragged(event -> {
+            double per = valueToPercentage(event.getX(), minLine.getX(), maxLine.getX());
+            int newValue = (int) percentageToValue(per, MIN, MAX);
+            setGondelValue(MIN >= newValue ? 0 : MAX <= newValue ? 100 : newValue);
+        });
+
+        schleppliftPoint.setOnMouseDragged(event -> {
+            double per = valueToPercentage(event.getX(), minLine.getX(), maxLine.getX());
+            int newValue = (int) percentageToValue(per, MIN, MAX);
+            setSchleppliftValue(MIN >= newValue ? 0 : MAX <= newValue ? 100 : newValue);
+        });
+
+        sesselliftPoint.setOnMouseDragged(event -> {
+            double per = valueToPercentage(event.getX(), minLine.getX(), maxLine.getX());
+            int newValue = (int) percentageToValue(per, MIN, MAX);
+            setSesselliftValue(MIN >= newValue ? 0 : MAX <= newValue ? 100 : newValue);
+        });
     }
 
     private void setupValueChangeListeners() {
@@ -192,7 +209,7 @@ public class SkiliftControl extends Region {
         var per = valueToPercentage(value, MIN, MAX);
         var x = (maxLine.getX() - minLine.getX()) * per;
         schlepplift.setX(x - 32);
-        schleppliftSeil.setX(x - 7);
+        schleppliftSeil.setX(x + 10);
         schleppliftPoint.setCenterX(x + 30);
     }
 
@@ -226,7 +243,8 @@ public class SkiliftControl extends Region {
 
     private void loadFonts(String... font) {
         for (String f : font) {
-            Font.loadFont(getClass().getResourceAsStream(f), 0);
+            String url = getClass().getResource(f).toExternalForm();
+            Font.loadFont(url, 0);
         }
     }
 

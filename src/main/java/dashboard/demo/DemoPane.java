@@ -1,12 +1,9 @@
-package cuie.kappeler_zuercher.dashboard.demo;
+package dashboard.demo;
 
-import cuie.kappeler_zuercher.dashboard.DashboardControl;
-import cuie.kappeler_zuercher.dashboard.GaugeChartControl;
-import cuie.kappeler_zuercher.dashboard.SkiliftControl;
+import dashboard.DashboardControl;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import javafx.util.converter.NumberStringConverter;
@@ -16,7 +13,7 @@ import javafx.util.converter.NumberStringConverter;
  */
 public class DemoPane extends BorderPane {
 
-    private final PresentationModel pm;
+    private final dashboard.demo.PresentationModel pm;
 
     // declare the custom control
     private DashboardControl dashboardControl;

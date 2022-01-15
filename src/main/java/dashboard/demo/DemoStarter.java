@@ -1,4 +1,4 @@
-package cuie.kappeler_zuercher.dashboard.demo;
+package dashboard.demo;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

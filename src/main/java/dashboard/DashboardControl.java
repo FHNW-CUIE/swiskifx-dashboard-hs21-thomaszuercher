@@ -1,4 +1,4 @@
-package cuie.kappeler_zuercher.dashboard;
+package dashboard;
 
 
 import javafx.beans.property.IntegerProperty;
@@ -74,8 +74,8 @@ public class DashboardControl extends Region {
     }
 
     private void initializeSelf() {
-        loadFonts("/fonts/Roboto/Roboto-Regular.ttf");
-        loadFonts("/fonts/Roboto/Roboto-Bold.ttf");
+        loadFonts("fonts/Roboto/Roboto-Regular.ttf");
+        loadFonts("fonts/Roboto/Roboto-Bold.ttf");
         addStylesheetFiles("style.css");
 
         getStyleClass().add("dashboard-control");
@@ -173,7 +173,8 @@ public class DashboardControl extends Region {
 
     private void loadFonts(String... font){
         for(String f : font){
-            Font.loadFont(getClass().getResourceAsStream(f), 0);
+            String url = getClass().getResource(f).toExternalForm();
+            Font.loadFont(url, 0);
         }
     }
 

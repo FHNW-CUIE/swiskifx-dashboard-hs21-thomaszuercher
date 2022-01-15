@@ -1,4 +1,4 @@
-package cuie.kappeler_zuercher.dashboard.demo;
+package dashboard.demo;
 
 import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
