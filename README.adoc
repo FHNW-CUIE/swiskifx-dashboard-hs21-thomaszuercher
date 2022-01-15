@@ -24,7 +24,7 @@
   dashboardControl.schleppliftValueProperty().bindBidirectional(YOUR_PM.YOUR_PROXY.SCHLEPPLIFT_PROPERTY);
   dashboardControl.sesselliftValueProperty().bindBidirectional(YOUR_PM.YOUR_PROXY.SESSELLIFT_PROPERTY);
   dashboardControl.locationValueProperty().bind(YOUR_PM.YOUR_PROXY.CANTON_PROPERTY);
-  dashboardControl.snowheightValueProperty().bind(YOUR_PM.YOUR_PROXY.SNOWHEIGHT_PROPERTY); --> evtl. .() nach SNOWHEIGHT_PROPERTY benötigt
+  dashboardControl.snowheightValueProperty().bind(YOUR_PM.YOUR_PROXY.SNOWHEIGHT_PROPERTY); --> evtl. .asString() nach SNOWHEIGHT_PROPERTY benötigt
   dashboardControl.openLiftValueProperty().bind(YOUR_PM.YOUR_PROXY.SNOWHEIGHT_PROPERTY);
   dashboardControl.imageUrlValueProperty().bind(.YOUR_PM.YOUR_PROXY.IMAGE_URL_PROPERTY);
 ```
