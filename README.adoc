@@ -1,3 +1,35 @@
+== Anleitung für OOP2 Teams
+
+* Code hier (https://drive.google.com/file/d/1eNAssp3ILEUSg5Rc4UAONqINsh07JzPy/view?usp=sharing) herunterladen und den Ordner dashboard kopieren und in dein Code einfügen. Am besten hier einfügen: YOUR_PROJECT_FOLDER/src/main/java
+
+* Folgender import hinzufügen in dem File, wo das Dashboard hinzugefügt wird:
+        import dashboard.DashboardControl;
+
+* Folgende Variable definiieren
+```
+  private DashboardControl dashboardControl;
+```
+
+* in initializeControls folgenden Code hinzufügen
+```
+  dashboardControl = new DashboardControl();
+```
+
+* folgende bindings in setupBindings hinzugufügen
+```
+  dashboardControl.cantonValueProperty().bind(YOUR_PM.YOUR_PROXY.CANTON_PROPERTY);
+  dashboardControl.gondelValueProperty().bindBidirectional(YOUR_PM.YOUR_PROXY.GONDEL_PROPERTY);
+  dashboardControl.schleppliftValueProperty().bindBidirectional(YOUR_PM.YOUR_PROXY.SCHLEPPLIFT_PROPERTY);
+  dashboardControl.sesselliftValueProperty().bindBidirectional(YOUR_PM.YOUR_PROXY.SESSELLIFT_PROPERTY);
+  dashboardControl.locationValueProperty().bind(YOUR_PM.YOUR_PROXY.CANTON_PROPERTY);
+  dashboardControl.snowheightValueProperty().bind(YOUR_PM.YOUR_PROXY.SNOWHEIGHT_PROPERTY); --> evtl. .() nach SNOWHEIGHT_PROPERTY benötigt
+  dashboardControl.openLiftValueProperty().bind(YOUR_PM.YOUR_PROXY.SNOWHEIGHT_PROPERTY);
+  dashboardControl.imageUrlValueProperty().bind(.YOUR_PM.YOUR_PROXY.IMAGE_URL_PROPERTY);
+```
+Beispiel:
+
+image::https://i.ibb.co/Lp7mFxT/Screenshot-2022-01-15-at-19-44-41.png[Picture of Project]
+
 == CUIE Abschlussprojekt
 
 === Bearbeitet von
