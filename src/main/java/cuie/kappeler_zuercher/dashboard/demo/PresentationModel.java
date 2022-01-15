@@ -1,6 +1,7 @@
-package cuie.kappeler_zuercher.skilift_slider.demo;
+package cuie.kappeler_zuercher.dashboard.demo;
 
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 
 /**
  *
@@ -16,6 +17,20 @@ public class PresentationModel {
     private final IntegerProperty min = new SimpleIntegerProperty(0);
     private final IntegerProperty max = new SimpleIntegerProperty(100);
     private final IntegerProperty openLifts = new SimpleIntegerProperty(30);
+
+    public String getImageUrl() {
+        return imageUrl.get();
+    }
+
+    public StringProperty imageUrlProperty() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl.set(imageUrl);
+    }
+
+    private final StringProperty imageUrl = new SimpleStringProperty("https://inter-cdn.com/images/1920/3257541/03_winter-tschiertschen-hotel-alpina-mountain.jpg");
 
 
     // all getters and setters (generated via "Code -> Generate -> Getter and Setter)
@@ -127,4 +142,6 @@ public class PresentationModel {
     public void setSnowHeight(int snowHeight) {
         this.snowHeight.set(snowHeight);
     }
+
+
 }

@@ -1,4 +1,4 @@
-package cuie.kappeler_zuercher.skilift_slider;
+package cuie.kappeler_zuercher.dashboard;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -15,19 +15,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-
 /**
  * Das Dashboard dient dazu, dass man die Anzahl an verschiedenen Skiliften per Slider einstellen kann.
  * Bei den Slider sind die min und max Werte gesetzt, welche nicht überschritten werden können.
- *
  */
 public class SkiliftControl extends Region {
-    private static final double ARTBOARD_WIDTH  = 400;
+    private static final double ARTBOARD_WIDTH = 400;
     private static final double ARTBOARD_HEIGHT = 400;
 
     private static final double ASPECT_RATIO = ARTBOARD_WIDTH / ARTBOARD_HEIGHT;
 
-    private static final double MINIMUM_WIDTH  = 100;
+    private static final double MINIMUM_WIDTH = 100;
     private static final double MINIMUM_HEIGHT = MINIMUM_WIDTH / ASPECT_RATIO;
 
     private static final double MAXIMUM_WIDTH = 1000;
@@ -41,15 +39,14 @@ public class SkiliftControl extends Region {
     private static final Integer MIN = 0;
     private static final Integer MAX = 100;
 
-    private static final Color COLOR_GONDEL = Color.rgb(81,108,151);
-    private static final Color COLOR_SCHLEPPLIFT = Color.rgb(17,146,242);
-    private static final Color COLOR_SESSELLIFT = Color.rgb(63,82,255);
+    private static final Color COLOR_GONDEL = Color.rgb(81, 108, 151);
+    private static final Color COLOR_SCHLEPPLIFT = Color.rgb(17, 146, 242);
+    private static final Color COLOR_SESSELLIFT = Color.rgb(63, 82, 255);
 
-    private Rectangle background;
-    private Text   displayLocation;
-    private Text   displayCanton;
-    private Text   minLifte;
-    private Text   maxLifte;
+    private Text displayLocation;
+    private Text displayCanton;
+    private Text minLifte;
+    private Text maxLifte;
     private Rectangle line;
     private Rectangle minLine;
     private Rectangle maxLine;
@@ -83,17 +80,15 @@ public class SkiliftControl extends Region {
     }
 
     private void initializeSelf() {
-        loadFonts("/fonts//Roboto/Roboto-Regular.ttf");
-        loadFonts("/fonts//Roboto/Roboto-Bold.ttf");
+        loadFonts("/fonts/Roboto/Roboto-Regular.ttf");
+        loadFonts("/fonts/Roboto/Roboto-Bold.ttf");
         addStylesheetFiles("style.css");
 
         getStyleClass().add("skilift-control");
     }
 
     private void initializeParts() {
-        background = new Rectangle(0,0,400,400);
-        background.getStyleClass().add("background");
-        displayLocation = new Text(10, 25,"");
+        displayLocation = new Text(10, 25, "");
         displayLocation.getStyleClass().add("location-title");
         displayCanton = new Text(10, 60, "");
         displayCanton.getStyleClass().add("canton");
@@ -105,15 +100,15 @@ public class SkiliftControl extends Region {
         maxLifte.setX(355);
         maxLifte.setY(153);
         maxLifte.getStyleClass().add("max-lifte");
-        line = new Rectangle(0,177,400,3);
-        minLine = new Rectangle(31,167,3,24);
-        maxLine = new Rectangle(365,167,3,24);
+        line = new Rectangle(0, 177, 400, 3);
+        minLine = new Rectangle(31, 167, 3, 24);
+        maxLine = new Rectangle(365, 167, 3, 24);
 
-        gondel = new Rectangle(minLine.getX() - 40, 177,70, 58);
-        schlepplift = new Rectangle(minLine.getX() - 40, 261,48, 45);
-        schleppliftSeil = new Rectangle(minLine.getX() - 40, 177,41, 109);
-        sessellift = new Rectangle(minLine.getX() - 40, 331,59, 59);
-        sesselliftSeil = new Rectangle(minLine.getX() - 40, 177,2, 184);
+        gondel = new Rectangle(minLine.getX() - 40, 177, 70, 58);
+        schlepplift = new Rectangle(minLine.getX() - 40, 261, 48, 45);
+        schleppliftSeil = new Rectangle(minLine.getX() - 40, 177, 41, 109);
+        sessellift = new Rectangle(minLine.getX() - 40, 331, 59, 59);
+        sesselliftSeil = new Rectangle(minLine.getX() - 40, 177, 2, 184);
         ImagePattern patternGondel = new ImagePattern(GONDEL_IMG);
         ImagePattern patternSchlepplift = new ImagePattern(SCHLEPPLIFT_IMG);
         ImagePattern patternSchleppliftSeil = new ImagePattern(SCHLEPPLIFT_SEIL_IMG);
@@ -124,11 +119,11 @@ public class SkiliftControl extends Region {
         schleppliftSeil.setFill(patternSchleppliftSeil);
         sessellift.setFill(patternSessellift);
         sesselliftSeil.setFill(patternSesselliftSeil);
-        gondelPoint = new Circle(158,178, 10);
+        gondelPoint = new Circle(158, 178, 10);
         gondelPoint.setFill(COLOR_GONDEL);
-        schleppliftPoint = new Circle(168,178, 10);
+        schleppliftPoint = new Circle(168, 178, 10);
         schleppliftPoint.setFill(COLOR_SCHLEPPLIFT);
-        sesselliftPoint = new Circle(178,178, 10);
+        sesselliftPoint = new Circle(178, 178, 10);
         sesselliftPoint.setFill(COLOR_SESSELLIFT);
     }
 
@@ -141,86 +136,82 @@ public class SkiliftControl extends Region {
     }
 
     private void layoutParts() {
-        drawingPane.getChildren().addAll(background, displayLocation, displayCanton,
-                minLifte, maxLifte, line, minLine, maxLine,
-                gondel, schleppliftSeil, schlepplift, sesselliftSeil, sessellift,
-                gondelPoint, schleppliftPoint, sesselliftPoint);
+        drawingPane.getChildren()
+                .addAll(displayLocation, displayCanton, minLifte, maxLifte, line, minLine, maxLine, gondel,
+                        schleppliftSeil, schlepplift, sesselliftSeil, sessellift, gondelPoint, schleppliftPoint,
+                        sesselliftPoint);
 
         getChildren().add(drawingPane);
     }
 
     private void setupEventHandlers() {
         gondel.setOnMouseDragged(event -> {
-            double per = valueToPercentage(event.getX(), minLine.getX(), maxLine.getX());
+            double per = valueToPercentage(event.getX() - 5, minLine.getX(), maxLine.getX());
             int newValue = (int) percentageToValue(per, MIN, MAX);
-            if(MIN <= newValue && newValue <= MAX)
-                setGondelValue(newValue);
+            setGondelValue(MIN >= newValue ? 0 : MAX <= newValue ? 100 : newValue);
         });
         schlepplift.setOnMouseDragged(event -> {
-            double per = valueToPercentage(event.getX(), minLine.getX(), maxLine.getX());
+            double per = valueToPercentage(event.getX() + 50, minLine.getX(), maxLine.getX());
             int newValue = (int) percentageToValue(per, MIN, MAX);
-            if(MIN <= newValue && newValue <= MAX)
-                setSchleppliftValue(newValue);
+            setSchleppliftValue(MIN >= newValue ? 0 : MAX <= newValue ? 100 : newValue);
         });
         sessellift.setOnMouseDragged(event -> {
             double per = valueToPercentage(event.getX(), minLine.getX(), maxLine.getX());
             int newValue = (int) percentageToValue(per, MIN, MAX);
-            if(MIN <= newValue && newValue <= MAX)
-                setSesselliftValue(newValue);
+            setSesselliftValue(MIN >= newValue ? 0 : MAX <= newValue ? 100 : newValue);
         });
     }
 
     private void setupValueChangeListeners() {
-        gondelValueProperty().addListener((observable, oldValue, newValue) ->
-            replaceGondel(newValue.intValue()));
-        schleppliftValueProperty().addListener((observable, oldValue, newValue) ->
-                replaceSchlepplift(newValue.intValue()));
-        sesselliftValueProperty().addListener((observable, oldValue, newValue) ->
-                replaceSessellift(newValue.intValue()));
+        gondelValueProperty().addListener((observable, oldValue, newValue) -> replaceGondel(newValue.intValue()));
+        schleppliftValueProperty().addListener(
+                (observable, oldValue, newValue) -> replaceSchlepplift(newValue.intValue()));
+        sesselliftValueProperty().addListener(
+                (observable, oldValue, newValue) -> replaceSessellift(newValue.intValue()));
     }
 
     private void setupBindings() {
         displayLocation.textProperty().bind(locationValueProperty());
-        displayCanton.textProperty().bind(cantonValueProperty().concat(" (").concat(snowheightValueProperty()).concat(" cm Schnee)"));
+        displayCanton.textProperty()
+                .bind(cantonValueProperty().concat(" (").concat(snowheightValueProperty()).concat(" cm Schnee)"));
     }
 
-
-    @Override
-    protected void layoutChildren() {
+    @Override protected void layoutChildren() {
         super.layoutChildren();
         resize();
     }
 
-    private void replaceGondel(int value){
+    private void replaceGondel(int value) {
         var per = valueToPercentage(value, MIN, MAX);
         var x = (maxLine.getX() - minLine.getX()) * per;
         gondel.setX(x + 3);
-        gondelPoint.setCenterX(x+30);
+        gondelPoint.setCenterX(x + 30);
     }
 
-    private void replaceSchlepplift(int value){
+    private void replaceSchlepplift(int value) {
         var per = valueToPercentage(value, MIN, MAX);
         var x = (maxLine.getX() - minLine.getX()) * per;
         schlepplift.setX(x - 32);
         schleppliftSeil.setX(x - 7);
-        schleppliftPoint.setCenterX(x+30);
+        schleppliftPoint.setCenterX(x + 30);
     }
 
-    private void replaceSessellift(int value){
+    private void replaceSessellift(int value) {
         var per = valueToPercentage(value, MIN, MAX);
         var x = (maxLine.getX() - minLine.getX()) * per;
         sessellift.setX(x + 4);
         sesselliftSeil.setX(x + 30);
-        sesselliftPoint.setCenterX(x+30);
+        sesselliftPoint.setCenterX(x + 30);
     }
 
     //resize by scaling
     private void resize() {
-        Insets padding         = getPadding();
-        double availableWidth  = getWidth() - padding.getLeft() - padding.getRight();
+        Insets padding = getPadding();
+        double availableWidth = getWidth() - padding.getLeft() - padding.getRight();
         double availableHeight = getHeight() - padding.getTop() - padding.getBottom();
 
-        double width = Math.max(Math.min(Math.min(availableWidth, availableHeight * ASPECT_RATIO), MAXIMUM_WIDTH), MINIMUM_WIDTH);
+        double width = Math.max(Math.min(Math.min(availableWidth, availableHeight * ASPECT_RATIO), MAXIMUM_WIDTH),
+                MINIMUM_WIDTH);
 
         double scalingFactor = width / ARTBOARD_WIDTH;
 
@@ -233,20 +224,20 @@ public class SkiliftControl extends Region {
 
     // some handy functions
 
-    private void loadFonts(String... font){
-        for(String f : font){
+    private void loadFonts(String... font) {
+        for (String f : font) {
             Font.loadFont(getClass().getResourceAsStream(f), 0);
         }
     }
 
-    private void addStylesheetFiles(String... stylesheetFile){
-        for(String file : stylesheetFile){
+    private void addStylesheetFiles(String... stylesheetFile) {
+        for (String file : stylesheetFile) {
             String stylesheet = getClass().getResource(file).toExternalForm();
             getStylesheets().add(stylesheet);
         }
     }
 
-    private double percentageToValue(double percentage, double minValue, double maxValue){
+    private double percentageToValue(double percentage, double minValue, double maxValue) {
         return ((maxValue - minValue) * percentage) + minValue;
     }
 
@@ -256,33 +247,29 @@ public class SkiliftControl extends Region {
 
     // compute sizes
 
-    @Override
-    protected double computeMinWidth(double height) {
-        Insets padding           = getPadding();
+    @Override protected double computeMinWidth(double height) {
+        Insets padding = getPadding();
         double horizontalPadding = padding.getLeft() + padding.getRight();
 
         return MINIMUM_WIDTH + horizontalPadding;
     }
 
-    @Override
-    protected double computeMinHeight(double width) {
-        Insets padding         = getPadding();
+    @Override protected double computeMinHeight(double width) {
+        Insets padding = getPadding();
         double verticalPadding = padding.getTop() + padding.getBottom();
 
         return MINIMUM_HEIGHT + verticalPadding;
     }
 
-    @Override
-    protected double computePrefWidth(double height) {
-        Insets padding           = getPadding();
+    @Override protected double computePrefWidth(double height) {
+        Insets padding = getPadding();
         double horizontalPadding = padding.getLeft() + padding.getRight();
 
         return ARTBOARD_WIDTH + horizontalPadding;
     }
 
-    @Override
-    protected double computePrefHeight(double width) {
-        Insets padding         = getPadding();
+    @Override protected double computePrefHeight(double width) {
+        Insets padding = getPadding();
         double verticalPadding = padding.getTop() + padding.getBottom();
 
         return ARTBOARD_HEIGHT + verticalPadding;

@@ -6,8 +6,7 @@
 }
 
 .skilift-control {
-    -fx-padding: 5;
-    -fx-background-color: rgb(12, 12, 12);
+    -fx-padding: 0 50 0 0;
     -base-color: rgb(104, 197, 246);
 }
 
@@ -17,18 +16,17 @@
 
 .skilift-control .location-title {
     -fx-font-family: 'Roboto Bold';
-    -fx-font-size: 24;
-    -fx-fill: derive(-base-color, 95%);
+    -fx-font-size: 36;
 }
 
 .skilift-control .canton {
-    -fx-font-size: 16;
-    -fx-fill: derive(-base-color, 95%);
+    -fx-font-size: 24;
 }
 
 .gondel-point {
     -fx-background-color: rgb(81, 108, 151);
 }
+
 .gauge-control .chart-text {
     -fx-fill: white;
 }
@@ -61,5 +59,9 @@
 
 .gauge-control .sessellift-arc {
     -fx-fill: -sessellift-color;
+}
+
+.dashboard-control .background {
+    -fx-fill: rgba(255,255,255,0.6);
 }
 

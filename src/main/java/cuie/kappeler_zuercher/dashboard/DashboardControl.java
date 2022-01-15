@@ -1,10 +1,17 @@
-package cuie.kappeler_zuercher.skilift_slider;
+package cuie.kappeler_zuercher.dashboard;
+
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -16,13 +23,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextBoundsType;
 
+import java.util.HashMap;
+
 /**
  * Das Dashboard dient dazu, dass man die Anzahl an verschiedenen Skiliften per Slider einstellen kann.
  * Bei den Slider sind die min und max Werte gesetzt, welche nicht überschritten werden können.
  *
  */
-public class GaugeChartControl extends Region {
-    private static final double ARTBOARD_WIDTH  = 400;
+public class DashboardControl extends Region {
+    private static final double ARTBOARD_WIDTH  = 800;
     private static final double ARTBOARD_HEIGHT = 400;
 
     private static final double ASPECT_RATIO = ARTBOARD_WIDTH / ARTBOARD_HEIGHT;
@@ -33,33 +42,28 @@ public class GaugeChartControl extends Region {
     private static final double MAXIMUM_WIDTH = 1000;
 
 
-    private static final Color COLOR_GONDEL = Color.rgb(81,108,151);
-    private static final Color COLOR_SCHLEPPLIFT = Color.rgb(17,146,242);
-    private static final Color COLOR_SESSELLIFT = Color.rgb(63,82,255);
+    private GaugeChartControl gaugeChartControl;
+    private SkiliftControl skiliftControl;
+    private ImageView image;
+    private Rectangle background;
 
-    private Text title;
-    private Text gondelVal;
-    private Text schleppliftVal;
-    private Text sesselliftVal;
-    private Arc  gondelArc;
-    private Arc  schleppliftArc;
-    private Arc  sesselliftArc;
-    private Rectangle gondelRect;
-    private Rectangle schleppliftRect;
-    private Rectangle sesselliftRect;
-    private Text gondelDesc;
-    private Text schleppliftDesc;
-    private Text sesselliftDesc;
+    private final HashMap<String, Image> imageHashMap = new HashMap<>();
 
     private final IntegerProperty gondelValue = new SimpleIntegerProperty();
     private final IntegerProperty schleppliftValue = new SimpleIntegerProperty();
     private final IntegerProperty sesselliftValue = new SimpleIntegerProperty();
     private final IntegerProperty openLiftValue = new SimpleIntegerProperty();
 
+
+    private final StringProperty locationValue = new SimpleStringProperty();
+    private final StringProperty cantonValue = new SimpleStringProperty();
+    private final StringProperty snowheightValue = new SimpleStringProperty();
+    private final StringProperty imageUrlValue = new SimpleStringProperty();
+
     // needed for resizing
     private Pane drawingPane;
 
-    public GaugeChartControl() {
+    public DashboardControl() {
         initializeSelf();
         initializeParts();
         initializeDrawingPane();
@@ -70,61 +74,36 @@ public class GaugeChartControl extends Region {
     }
 
     private void initializeSelf() {
-        loadFonts("/fonts//Roboto/Roboto-Regular.ttf");
-        loadFonts("/fonts//Roboto/Roboto-Bold.ttf");
+        loadFonts("/fonts/Roboto/Roboto-Regular.ttf");
+        loadFonts("/fonts/Roboto/Roboto-Bold.ttf");
         addStylesheetFiles("style.css");
 
-        getStyleClass().add("gauge-control");
+        getStyleClass().add("dashboard-control");
     }
 
     private void initializeParts() {
-        title = new Text(24, 23,"0 von 30 Life geöffnet");
-        title.getStyleClass().add("title-text");
-        setCenteredText(title, 200, 50);
-        gondelVal = new Text("0");
-        gondelVal.getStyleClass().add("chart-text");
-        sesselliftVal = new Text("0");
-        sesselliftVal.getStyleClass().add("chart-text");
-        schleppliftVal = new Text("0");
-        schleppliftVal.getStyleClass().add("chart-text");
+        gaugeChartControl = new GaugeChartControl();
+        skiliftControl = new SkiliftControl();
+        image = new ImageView();
+        image.maxHeight(400);
+        image.setFitWidth(800);
+        image.setPreserveRatio(true);
 
-        gondelArc = new Arc(200, 200, 100, 100,0, 150);
-        gondelArc.getStyleClass().add("gondel-arc");
-        schleppliftArc = new Arc(200, 200, 100, 100,150, 300);
-        schleppliftArc.getStyleClass().add("schlepplift-arc");
-        sesselliftArc = new Arc(200, 200, 100, 100,300, 360);
-        sesselliftArc.getStyleClass().add("sessellift-arc");
-
-        gondelArc.setType(ArcType.ROUND);
-        sesselliftArc.setType(ArcType.ROUND);
-        schleppliftArc.setType(ArcType.ROUND);
-
-
-        gondelRect = new Rectangle(70,350,20, 20);
-        gondelRect.getStyleClass().add("gondel-rect");
-        gondelDesc = new Text(95, 365, "Gondeln");
-
-
-        schleppliftRect = new Rectangle(170,350,20, 20);
-        schleppliftRect.getStyleClass().add("schlepplift-rect");
-        schleppliftDesc = new Text(195, 365, "Schlepplifte");
-
-        sesselliftRect = new Rectangle(270,350,20, 20);
-        sesselliftRect.getStyleClass().add("sessellift-rect");
-        sesselliftDesc = new Text(295, 365, "Sessellifte");
+        background = new Rectangle(800,400);
+        background.getStyleClass().add("background");
     }
 
     private void initializeDrawingPane() {
         drawingPane = new Pane();
         drawingPane.getStyleClass().add("drawing-pane");
+        drawingPane.setClip(new Rectangle(800,400));
         drawingPane.setMaxSize(ARTBOARD_WIDTH, ARTBOARD_HEIGHT);
         drawingPane.setMinSize(ARTBOARD_WIDTH, ARTBOARD_HEIGHT);
         drawingPane.setPrefSize(ARTBOARD_WIDTH, ARTBOARD_HEIGHT);
     }
 
     private void layoutParts() {
-        drawingPane.getChildren().addAll(gondelArc, sesselliftArc, schleppliftArc, title, gondelVal, sesselliftVal,
-                schleppliftVal, sesselliftRect, gondelRect, schleppliftRect, gondelDesc, schleppliftDesc, sesselliftDesc);
+        drawingPane.getChildren().addAll(image, background, gaugeChartControl,skiliftControl);
         getChildren().add(drawingPane);
     }
 
@@ -133,15 +112,37 @@ public class GaugeChartControl extends Region {
     }
 
     private void setupValueChangeListeners() {
-        gondelValueProperty().addListener((observable, oldValue, newValue) -> update());
-        schleppliftValueProperty().addListener((observable, oldValue, newValue) -> update());
-        sesselliftValueProperty().addListener((observable, oldValue, newValue) -> update());
+        imageUrlValueProperty().addListener((x,t,y) -> {
+            Image img;
+
+            //cach image for faster loading
+            if(imageHashMap.containsKey(imageUrlValueProperty().getValue())) {
+                img = imageHashMap.get(imageUrlValueProperty().getValue());
+            } else {
+                if(imageUrlValueProperty().getValue() != null && !imageUrlValueProperty().getValue().isEmpty()) {
+                    img = new Image(imageUrlValueProperty().getValue(), true);
+                    imageHashMap.put(imageUrlValueProperty().getValue(), img);
+                } else{
+                    img = null;
+                }
+            }
+
+            image.setImage(img);
+        });
     }
 
     private void setupBindings() {
-        gondelVal.textProperty().bind(gondelValueProperty().asString());
-        schleppliftVal.textProperty().bind(schleppliftValueProperty().asString());
-        sesselliftVal.textProperty().bind(sesselliftValueProperty().asString());
+        gaugeChartControl.gondelValueProperty().bind(gondelValueProperty());
+        gaugeChartControl.openLiftValueProperty().bind(openLiftValueProperty());
+        gaugeChartControl.sesselliftValueProperty().bind(sesselliftValueProperty());
+        gaugeChartControl.schleppliftValueProperty().bind(schleppliftValueProperty());
+
+        skiliftControl.cantonValueProperty().bind(cantonValueProperty());
+        skiliftControl.sesselliftValueProperty().bindBidirectional(sesselliftValueProperty());
+        skiliftControl.gondelValueProperty().bindBidirectional(gondelValueProperty());
+        skiliftControl.schleppliftValueProperty().bindBidirectional(schleppliftValueProperty());
+        skiliftControl.locationValueProperty().bind(locationValueProperty());
+        skiliftControl.snowheightValueProperty().bind(snowheightValueProperty());
     }
 
 
@@ -149,59 +150,6 @@ public class GaugeChartControl extends Region {
     protected void layoutChildren() {
         super.layoutChildren();
         resize();
-    }
-
-    private void update(){
-        updateTitle();
-        updateChart();
-    }
-
-    private void updateTitle(){
-        title.textProperty().set(openLiftValue.get() + " von " + getNrOfLifts() + " Lifte geöffnet");
-        setCenteredText(title, 200, 50);
-    }
-
-    private void updateChart(){
-        double angleGondel = valueToAngle(getGondelValue(), 0, getNrOfLifts());
-        double angleSchlepplift = valueToAngle(getSchleppliftValue(), 0, getNrOfLifts());
-        double angleSessellift = valueToAngle(getSesselliftValue(), 0, getNrOfLifts());
-
-        gondelArc.setStartAngle(0);
-        gondelArc.setLength(angleGondel);
-        schleppliftArc.setStartAngle(angleGondel);
-        schleppliftArc.setLength(angleSchlepplift);
-        sesselliftArc.setStartAngle(angleGondel + angleSchlepplift);
-        sesselliftArc.setLength(angleSessellift);
-
-        Point2D gondelTextPoint = getPointInMiddle(0, angleGondel, 50);
-        Point2D schleppliftTextPoint = getPointInMiddle(angleGondel, angleSchlepplift, 50);
-        Point2D sesselliftTextPoint = getPointInMiddle( angleGondel + angleSchlepplift, angleSessellift, 50);
-
-        setCenteredText(gondelVal, gondelTextPoint.getX(), gondelTextPoint.getY());
-        setCenteredText(schleppliftVal, schleppliftTextPoint.getX(), schleppliftTextPoint.getY());
-        setCenteredText(sesselliftVal, sesselliftTextPoint.getX(), sesselliftTextPoint.getY());
-    }
-
-    private Point2D getPointInMiddle(double startAngle, double lengthAngle, int distance){
-        double radAngle = (((lengthAngle + 180) / 2) + startAngle) * Math.PI / 180;
-        double nX = 200 + distance * Math.sin(radAngle);
-        double nY = 200 + distance * Math.cos(radAngle);
-        return new Point2D(nX,nY);
-    }
-
-
-    private int getNrOfLifts(){
-        return getGondelValue() + getSchleppliftValue() + getSesselliftValue();
-    }
-
-    private void setCenteredText(Text text, double cx, double cy) {
-        text.setTextOrigin(VPos.CENTER);
-        text.setTextAlignment(TextAlignment.CENTER);
-        double width = cx > ARTBOARD_WIDTH * 0.5 ? ((ARTBOARD_WIDTH - cx) * 2.0) : cx * 2.0;
-        text.setWrappingWidth(width);
-        text.setBoundsType(TextBoundsType.VISUAL);
-        text.setY(cy);
-        text.setX(cx - (width / 2.0));
     }
 
     //resize by scaling
@@ -236,10 +184,6 @@ public class GaugeChartControl extends Region {
         }
     }
 
-
-    private double valueToAngle(double value, double minValue, double maxValue) {
-        return 360.00 * ((value - minValue) / (maxValue - minValue));
-    }
 
     // compute sizes
 
@@ -288,6 +232,54 @@ public class GaugeChartControl extends Region {
         this.gondelValue.set(gondelValue);
     }
 
+    public String getLocationValue() {
+        return locationValue.get();
+    }
+
+    public StringProperty locationValueProperty() {
+        return locationValue;
+    }
+
+    public void setLocationValue(String locationValue) {
+        this.locationValue.set(locationValue);
+    }
+
+    public String getCantonValue() {
+        return cantonValue.get();
+    }
+
+    public StringProperty cantonValueProperty() {
+        return cantonValue;
+    }
+
+    public void setCantonValue(String cantonValue) {
+        this.cantonValue.set(cantonValue);
+    }
+
+    public String getSnowheightValue() {
+        return snowheightValue.get();
+    }
+
+    public StringProperty snowheightValueProperty() {
+        return snowheightValue;
+    }
+
+    public void setSnowheightValue(String snowheightValue) {
+        this.snowheightValue.set(snowheightValue);
+    }
+
+    public String getImageUrlValue() {
+        return imageUrlValue.get();
+    }
+
+    public StringProperty imageUrlValueProperty() {
+        return imageUrlValue;
+    }
+
+    public void setImageUrlValue(String imageUrlValue) {
+        this.imageUrlValue.set(imageUrlValue);
+    }
+
     public int getSchleppliftValue() {
         return schleppliftValue.get();
     }
@@ -326,3 +318,4 @@ public class GaugeChartControl extends Region {
 
 
 }
+

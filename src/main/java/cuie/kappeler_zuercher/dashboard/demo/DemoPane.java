@@ -1,7 +1,8 @@
-package cuie.kappeler_zuercher.skilift_slider.demo;
+package cuie.kappeler_zuercher.dashboard.demo;
 
-import cuie.kappeler_zuercher.skilift_slider.GaugeChartControl;
-import cuie.kappeler_zuercher.skilift_slider.SkiliftControl;
+import cuie.kappeler_zuercher.dashboard.DashboardControl;
+import cuie.kappeler_zuercher.dashboard.GaugeChartControl;
+import cuie.kappeler_zuercher.dashboard.SkiliftControl;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -18,8 +19,7 @@ public class DemoPane extends BorderPane {
     private final PresentationModel pm;
 
     // declare the custom control
-    private SkiliftControl skiliftControl;
-    private GaugeChartControl gaugeChartControl;
+    private DashboardControl dashboardControl;
 
     // all controls you need to show the features of the custom control
     private Label titleLabel;
@@ -40,8 +40,7 @@ public class DemoPane extends BorderPane {
     private void initializeControls() {
         setPadding(new Insets(10));
 
-        skiliftControl = new SkiliftControl();
-        gaugeChartControl = new GaugeChartControl();
+        dashboardControl = new DashboardControl();
 
         titleLabel = new Label("Dashboard Properties");
         valueGondelTitleLabel = new Label("Anzahl Gondeln: ");
@@ -58,8 +57,7 @@ public class DemoPane extends BorderPane {
         controlPane.setPadding(new Insets(0, 50, 0, 50));
         controlPane.setSpacing(10);
 
-        HBox controls = new HBox(skiliftControl, gaugeChartControl);
-        setCenter(controls);
+        setCenter(dashboardControl);
         setRight(controlPane);
     }
 
@@ -70,17 +68,14 @@ public class DemoPane extends BorderPane {
         valueSesselliftLabel.textProperty().bindBidirectional(pm.valueSesselliftProperty(), new NumberStringConverter());
 
         //bindings for the Custom Control
-        skiliftControl.gondelValueProperty().bindBidirectional(pm.valueGondelProperty());
-        skiliftControl.schleppliftValueProperty().bindBidirectional(pm.valueSchleppliftProperty());
-        skiliftControl.sesselliftValueProperty().bindBidirectional(pm.valueSesselliftProperty());
-        skiliftControl.locationValueProperty().bindBidirectional(pm.locationProperty());
-        skiliftControl.cantonValueProperty().bindBidirectional(pm.cantonProperty());
-        skiliftControl.snowheightValueProperty().bindBidirectional(pm.snowHeightProperty(), new NumberStringConverter());
-
-        gaugeChartControl.gondelValueProperty().bind(pm.valueGondelProperty());
-        gaugeChartControl.schleppliftValueProperty().bind(pm.valueSchleppliftProperty());
-        gaugeChartControl.sesselliftValueProperty().bind(pm.valueSesselliftProperty());
-        gaugeChartControl.openLiftValueProperty().bind(pm.openLiftsProperty());
+        dashboardControl.gondelValueProperty().bindBidirectional(pm.valueGondelProperty());
+        dashboardControl.schleppliftValueProperty().bindBidirectional(pm.valueSchleppliftProperty());
+        dashboardControl.sesselliftValueProperty().bindBidirectional(pm.valueSesselliftProperty());
+        dashboardControl.locationValueProperty().bindBidirectional(pm.locationProperty());
+        dashboardControl.cantonValueProperty().bindBidirectional(pm.cantonProperty());
+        dashboardControl.snowheightValueProperty().bindBidirectional(pm.snowHeightProperty(), new NumberStringConverter());
+        dashboardControl.openLiftValueProperty().bind(pm.openLiftsProperty());
+        dashboardControl.imageUrlValueProperty().bind(pm.imageUrlProperty());
 
     }
 
