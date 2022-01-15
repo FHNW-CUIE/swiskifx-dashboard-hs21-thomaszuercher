@@ -3,7 +3,9 @@
 * Code hier (https://drive.google.com/file/d/1eNAssp3ILEUSg5Rc4UAONqINsh07JzPy/view?usp=sharing) herunterladen und den Ordner dashboard kopieren und in dein Code einfügen. Am besten hier einfügen: YOUR_PROJECT_FOLDER/src/main/java
 
 * Folgender import hinzufügen in dem File, wo das Dashboard hinzugefügt wird:
-        import dashboard.DashboardControl;
+```
+  import dashboard.DashboardControl;
+```
 
 * Folgende Variable definiieren
 ```
