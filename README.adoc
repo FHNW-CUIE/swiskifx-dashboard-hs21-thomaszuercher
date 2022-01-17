@@ -32,12 +32,15 @@ Beispiel:
 
 image::https://i.ibb.co/Lp7mFxT/Screenshot-2022-01-15-at-19-44-41.png[Picture of Project]
 
+Bei Fragen könnt ihr euch gerne direkt über Microsoft Teams oder per E-Mail bei uns melden. 
+
+
 == CUIE Abschlussprojekt
 
 === Bearbeitet von
 
-* Kappeler Nico
-* Thomas Zürcher
+* Kappeler Nico <nico.kappeler@students.fhnw.ch>
+* Thomas Zürcher <thomas.zuercher@students.fhnw.ch>
 
 === Integriert in die OOP2-Projekte von
 
