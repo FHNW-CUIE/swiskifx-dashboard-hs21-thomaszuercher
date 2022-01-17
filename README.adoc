@@ -7,7 +7,7 @@
   import dashboard.DashboardControl;
 ```
 
-* Folgende Variable definiieren
+* Folgende Variable definieren
 ```
   private DashboardControl dashboardControl;
 ```
@@ -25,7 +25,7 @@
   dashboardControl.sesselliftValueProperty().bindBidirectional(YOUR_PM.YOUR_PROXY.SESSELLIFT_PROPERTY);
   dashboardControl.locationValueProperty().bind(YOUR_PM.YOUR_PROXY.CANTON_PROPERTY);
   dashboardControl.snowheightValueProperty().bind(YOUR_PM.YOUR_PROXY.SNOWHEIGHT_PROPERTY); --> evtl. .asString() nach SNOWHEIGHT_PROPERTY benötigt
-  dashboardControl.openLiftValueProperty().bind(YOUR_PM.YOUR_PROXY.SNOWHEIGHT_PROPERTY);
+  dashboardControl.openLiftValueProperty().bind(YOUR_PM.YOUR_PROXY.OPEN_LIFT_PROPERTY);
   dashboardControl.imageUrlValueProperty().bind(.YOUR_PM.YOUR_PROXY.IMAGE_URL_PROPERTY);
 ```
 Beispiel:
